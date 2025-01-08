@@ -447,7 +447,6 @@ class HHAPersonCard extends HTMLElement {
 
 		// Charging animation
 		const charging = this._hass?.states[this._config.charge_state_entity]?.state || '';
-		console.log(`Charging: ${charging} ⚡`)
 		if (charging == 'charging' || charging == 'Charging') {
 			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
 				el.classList.add('glow-charging');
