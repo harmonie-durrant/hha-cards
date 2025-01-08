@@ -114,6 +114,66 @@ const GLOBAL = {
 	}
 }
 
+const UTILS = {
+    updateElement(element, callback) {
+        if (element) {
+            const newValue = callback(element);
+            if (element.textContent !== newValue) {
+                callback(element);
+            }
+        }
+    },
+    addChoices(select, options) {
+        options.forEach(option => {
+            const choice = document.createElement('mwc-list-item');
+            choice.value = option.value;
+            choice.innerText = option.name;
+            select.appendChild(choice);
+        });
+    },
+};
+
+const GLOW = {
+	colors: {
+		charging: '#00FF00',
+		heating: '#FF4D00',
+		cooling: '#40A1EB',
+		light: '#FFE79E',
+	},
+	offStyle: `
+		.glow-off {
+			animation: none;
+		}
+	`,
+	cssGlowStyles: () => {
+		let result = '';
+		for (const key in GLOW.colors) {
+			result = result + `
+				.glow-${key} {
+					animation: breathing-shadow-${key} 1.5s infinite alternate ease-in-out;
+				}
+
+				@keyframes breathing-shadow-${key} {
+					0% {
+						box-shadow: 0px 0px 10px 1px ${GLOW.colors[key]};
+					}
+					100% {
+						box-shadow: 0px 0px 13px 3px ${GLOW.colors[key]};
+					}
+				}
+			`
+		};
+		result = result + `
+			.glow-off {
+				animation: none;
+			}
+		`
+		return (result)
+	},
+}
+
+const getMessage = (key, lang) => GLOBAL.MESSAGES[lang]?.[key] || '';
+
 class HHAPersonCard extends HTMLElement {
 
 	getHTML() {
@@ -141,6 +201,7 @@ class HHAPersonCard extends HTMLElement {
 	getCSS() {
 		return (`
 			ha-card {
+				border: none;
 				height: 100%;
 				display: flex;
 				flex-direction: row;
@@ -240,6 +301,8 @@ class HHAPersonCard extends HTMLElement {
 				background-color: black;
 				z-index: 10;
 			}
+
+			${GLOW.cssGlowStyles()}
 		`)
 	}
 
@@ -313,6 +376,7 @@ class HHAPersonCard extends HTMLElement {
         this.shadowRoot.appendChild(wrapper);
 
 		this._elements = {
+			[this._selectors.root]: wrapper,
 			[this._selectors.container]: this.shadowRoot.querySelector(`.${this._selectors.container}`),
 			[this._selectors.right]: this.shadowRoot.querySelector(`.${this._selectors.right}`),
 			[this._selectors.icon]: this.shadowRoot.querySelector(`.${this._selectors.icon}`),
@@ -339,36 +403,25 @@ class HHAPersonCard extends HTMLElement {
         }
 	}
 
-    _updateElement(key, callback) {
-        const element = this._elements[key];
-        if (element) {
-            const currentValue = element.textContent || element.style.width;
-            const newValue = callback(element);
-            if (currentValue !== newValue) {
-                callback(element);
-            }
-        }
-    }
-
 	_updateDynamicElements() {
 		if (!this._config.entity) {
-            this._showError(GLOBAL.MESSAGES[this._currentLanguage].ENTITY_ERROR);
+            this._showError(getMessage('ENTITY_ERROR', this._currentLanguage));
             return;
         }
         this._hideError();
 		const entity = this._hass?.states[this._config.entity];
         if (!entity) {
-            this._showError(GLOBAL.MESSAGES[this._currentLanguage].ENTITY_NOTFOUND);
+            this._showError(getMessage('ENTITY_NOTFOUND', this._currentLanguage));
             return;
         }
 		this._hideError();
 
-		this._updateElement(this._selectors.name, (el) => {
+		UTILS.updateElement(this._elements[this._selectors.name], (el) => {
             el.textContent = this._config.name || entity.attributes.friendly_name || this._config.entity;
         });
 
-		this._updateElement(this._selectors.status, (el) => {
-            el.textContent = entity.state || GLOBAL.MESSAGES[this._currentLanguage].UNAVAILABLE;
+		UTILS.updateElement(this._elements[this._selectors.status], (el) => {
+            el.textContent = entity.state || getMessage('UNAVAILABLE', this._currentLanguage);
         });
 
 		var avatar = entity.attributes.entity_picture;
@@ -376,19 +429,34 @@ class HHAPersonCard extends HTMLElement {
 			this._elements[this._selectors.avatar].style.display = GLOBAL.STYLE_EDIT.SHOW;
 			this._elements[this._selectors.shape].style.display = GLOBAL.STYLE_EDIT.HIDE;
 			this._elements[this._selectors.icon].style.display = GLOBAL.STYLE_EDIT.HIDE;
-			this._updateElement(this._selectors.avatar, (el) => {
+			UTILS.updateElement(this._elements[this._selectors.avatar], (el) => {
 				el.src = avatar;
 			});
 		} else {
 			this._elements[this._selectors.avatar].style.display = GLOBAL.STYLE_EDIT.HIDE;
 			this._elements[this._selectors.shape].style.display = GLOBAL.STYLE_EDIT.SHOW;
 			this._elements[this._selectors.icon].style.display = GLOBAL.STYLE_EDIT.SHOW;
-			this._updateElement(this._selectors.icon, (el) => {
+			UTILS.updateElement(this._elements[this._selectors.icon], (el) => {
 				el.setAttribute(this._selectors.icon, this._config.icon || entity.attributes.icon || GLOBAL.ALERT_ICON);
 				el.style.color = this._config.color || GLOBAL.DEFAULT_COLOR;
 			});
-			this._updateElement(this._selectors.shape, (el) => {
+			UTILS.updateElement(this._elements[this._selectors.shape], (el) => {
 				el.style.backgroundColor = this._config.color || GLOBAL.DEFAULT_COLOR;
+			});
+		}
+
+		// Charging animation
+		const charging = this._hass?.states[this._config.charge_state_entity]?.state || '';
+		console.log(`Charging: ${charging} ⚡`)
+		if (charging == 'charging' || charging == 'Charging') {
+			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
+				el.classList.add('glow-charging');
+				el.classList.remove('glow-off');
+			});
+		} else {
+			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
+				el.classList.add('glow-off');
+				el.classList.remove('glow-charging');
 			});
 		}
 	}
@@ -490,15 +558,6 @@ class HHAPersonCardEditor extends HTMLElement {
         this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: this._config } }));
     }
 
-    _addChoice(select, list) {
-        list.forEach(cur_choice => {
-            const option = document.createElement('mwc-list-item');
-            option.value = cur_choice.value;
-            option.innerHTML = `${cur_choice.name}`;
-            select.appendChild(option);
-        });
-    }
-
     _addColor(colorSelect) {
         const noColorOption = document.createElement('mwc-list-item');
         noColorOption.value = '';
@@ -533,7 +592,7 @@ class HHAPersonCardEditor extends HTMLElement {
             case 'layout':
                 inputElement = document.createElement('ha-select');
                 inputElement.popperOptions = ""
-                this._addChoice(inputElement, GLOBAL.LAYOUTS);
+				UTILS.addChoices(inputElement, GLOBAL.LAYOUTS);
                 inputElement.addEventListener('closed', (event) => {
                     event.stopPropagation();
                 });
