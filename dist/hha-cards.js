@@ -1,12 +1,12 @@
 const GLOBAL = {
-	STYLE_EDIT: {
+	styleEdit: {
 		SHOW: 'block',
 		SHOWF: 'flex',
 		HIDE: 'none'
 	},
-	ALERT_ICON: 'mdi:alert',
-	DEFAULT_COLOR: 'var(--state-icon-color)',
-	COLORS: [
+	alertIcon: 'mdi:alert',
+	defaultColor: 'var(--state-icon-color)',
+	colors: [
 		{ name: 'Default', value: 'var(--state-icon-color)' },
 		{ name: 'Accent', value: 'var(--accent-color)' },
 		{ name: 'Info', value: 'var(--info-color)' },
@@ -36,74 +36,74 @@ const GLOBAL = {
 		{ name: 'Black', value: 'var(--black-color)' },
 		{ name: 'White', value: 'var(--white-color)' }
 	],
-	LAYOUTS: [
+	layouts: [
 		{ name: 'Horizontal (default)', value: 'horizontal' },
 		{ name: 'Vertical', value: 'vertical' }
 	],
-	EDITOR_INPUT_FIELDS: {
-		PERSON_CARD: [
+}
+
+const EDITORS = {
+	personCard: {
+		inputFields: [
 			{   name: 'entity',
-				label: { en: 'Entity', fr: 'Entité', es: 'Entidad', de: 'Entität', },
-				type: 'entity',
+				label: { en: 'Entity', fr: 'Entité' },
+				type: 'person',
 				required: true,
 				description: {
-					en: 'Select an entity from Home Assistant.',
-					fr: 'Sélectionnez une entité de Home Assistant.',
-					es: 'Seleccione una entidad de Home Assistant.',
-					de: 'Wählen Sie eine Entität aus Home Assistant.',
+					en: 'Select an person.',
+					fr: 'Sélectionnez une personne.',
+				}},
+			{   name: 'charge_state_entity',
+				label: { en: 'Charge State Entity', fr: 'Entité pour l\'état de la charge' },
+				type: 'entity',
+				required: false,
+				description: {
+					en: 'Select a charge state entity.',
+					fr: 'Sélectionnez une entité pour voir l\'état de la charge.',
 				}},
 			{   name: 'name',
-				label: { en: 'Name', fr: 'Nom', es: 'Nombre', de: 'Name', },
+				label: { en: 'Name', fr: 'Nom' },
 				type: 'text',
 				required: false,
 				description: {
 					en: 'Enter a name for the entity.',
 					fr: 'Saisissez un nom pour l\'entité.',
-					es: 'Introduzca un nombre para la entidad.',
-					de: 'Geben Sie einen Namen für die Entität ein.',
 				}},
 			{   name: 'layout',
-				label: { en: 'Layout', fr: 'Disposition', es: 'Disposición', de: 'Layout', },
+				label: { en: 'Layout', fr: 'Disposition' },
 				type: 'layout',
 				required: false,
 				description: {
 					en: 'Select the layout.',
 					fr: 'Sélectionnez la disposition.',
-					es: 'Seleccione la disposición.',
-					de: 'Wählen Sie das Layout.',
 				}},
 			{   name: 'icon',
-				label: { en: 'Icon', fr: 'Icône', es: 'Icono', de: 'Symbol', },
+				label: { en: 'Icon', fr: 'Icône' },
 				type: 'icon',
 				required: false,
 				description: {
 					en: 'Select an icon for the entity.',
 					fr: 'Sélectionnez une icône pour l\'entité.',
-					es: 'Seleccione un icono para la entidad.',
-					de: 'Wählen Sie ein Symbol für die Entität.',
 				}},
 			{   name: 'color',
-				label: { en: 'Primary color', fr: 'Couleur de l\'icône', es: 'Color del icono', de: 'Primärfarbe', },
+				label: { en: 'Primary color', fr: 'Couleur de l\'icône' },
 				type: 'color',
 				required: false,
 				description: {
 					en: 'Select the primary color for the icon.',
 					fr: 'Sélectionnez la couleur principale de l\'icône.',
-					es: 'Seleccione el color principal del icono.',
-					de: 'Wählen Sie die Primärfarbe für das Symbol.',
 				}},
-		],
-		// TODO: add more cards here
+		]
 	},
-	DEFAULT_LANG: "en",
-	LANGUAGES: {
-		en: true,
-		fr: true
-	},
-	MESSAGES: {
+	// TODO: add more cards here
+}
+
+const LANG = {
+	default: "en",
+	messages: {
 		en: {
-			ENTITY_ERROR: "Le paramètre 'entity' est requis !",
-			ENTITY_NOTFOUND: "Entité introuvable dans Home Assistant.",
+			ENTITY_ERROR: "The 'entity' parameter is required!",
+			ENTITY_NOTFOUND: "Entity not found in Home Assistant.",
 			UNAVAILABLE: "Unavailable"
 		},
 		fr: {
@@ -111,6 +111,14 @@ const GLOBAL = {
 			ENTITY_NOTFOUND: "Entité introuvable dans Home Assistant.",
 			UNAVAILABLE: "Indisponible"
 		}
+	},
+	getLanguage: (language) => {
+		for (const key in LANG.messages) {
+			if (key === language) {
+				return key;
+			}
+		}
+		return LANG.default;
 	}
 }
 
@@ -172,7 +180,7 @@ const GLOW = {
 	},
 }
 
-const getMessage = (key, lang) => GLOBAL.MESSAGES[lang]?.[key] || '';
+const getMessage = (key, lang) => LANG.messages[lang]?.[key] || LANG.messages[LANG.default]?.[key] || '';
 
 class HHAPersonCard extends HTMLElement {
 
@@ -243,7 +251,7 @@ class HHAPersonCard extends HTMLElement {
 				width: 36px;
 				height: 36px;
 				border-radius: 50%;
-				background-color: ${GLOBAL.DEFAULT_COLOR};
+				background-color: ${GLOBAL.defaultColor};
 				opacity: 0.2;
 			}
 
@@ -309,7 +317,7 @@ class HHAPersonCard extends HTMLElement {
 	constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this._currentLanguage = GLOBAL.DEFAULT_LANG;
+        this._currentLanguage = LANG.default;
 		this._hass = null;
         this._elements = {};
         this._isBuilt = false;
@@ -360,7 +368,7 @@ class HHAPersonCard extends HTMLElement {
 
 	set hass(hass) {
         this._hass = hass;
-        this._currentLanguage = GLOBAL.LANGUAGES[hass.config.language] ? hass.config.language : GLOBAL.DEFAULT_LANG;
+		this._currentLanguage = LANG.getLanguage(hass.config.language);
         this._updateDynamicElements();
     }
 
@@ -426,22 +434,22 @@ class HHAPersonCard extends HTMLElement {
 
 		var avatar = entity.attributes.entity_picture;
 		if (avatar) {
-			this._elements[this._selectors.avatar].style.display = GLOBAL.STYLE_EDIT.SHOW;
-			this._elements[this._selectors.shape].style.display = GLOBAL.STYLE_EDIT.HIDE;
-			this._elements[this._selectors.icon].style.display = GLOBAL.STYLE_EDIT.HIDE;
+			this._elements[this._selectors.avatar].style.display = GLOBAL.styleEdit.SHOW;
+			this._elements[this._selectors.shape].style.display = GLOBAL.styleEdit.HIDE;
+			this._elements[this._selectors.icon].style.display = GLOBAL.styleEdit.HIDE;
 			UTILS.updateElement(this._elements[this._selectors.avatar], (el) => {
 				el.src = avatar;
 			});
 		} else {
-			this._elements[this._selectors.avatar].style.display = GLOBAL.STYLE_EDIT.HIDE;
-			this._elements[this._selectors.shape].style.display = GLOBAL.STYLE_EDIT.SHOW;
-			this._elements[this._selectors.icon].style.display = GLOBAL.STYLE_EDIT.SHOW;
+			this._elements[this._selectors.avatar].style.display = GLOBAL.styleEdit.HIDE;
+			this._elements[this._selectors.shape].style.display = GLOBAL.styleEdit.SHOW;
+			this._elements[this._selectors.icon].style.display = GLOBAL.styleEdit.SHOW;
 			UTILS.updateElement(this._elements[this._selectors.icon], (el) => {
-				el.setAttribute(this._selectors.icon, this._config.icon || entity.attributes.icon || GLOBAL.ALERT_ICON);
-				el.style.color = this._config.color || GLOBAL.DEFAULT_COLOR;
+				el.setAttribute(this._selectors.icon, this._config.icon || entity.attributes.icon || GLOBAL.alertIcon);
+				el.style.color = this._config.color || GLOBAL.defaultColor;
 			});
 			UTILS.updateElement(this._elements[this._selectors.shape], (el) => {
-				el.style.backgroundColor = this._config.color || GLOBAL.DEFAULT_COLOR;
+				el.style.backgroundColor = this._config.color || GLOBAL.defaultColor;
 			});
 		}
 
@@ -515,7 +523,7 @@ class HHAPersonCardEditor extends HTMLElement {
         if (!hass) {
             return;
         }
-        this._currentLanguage = GLOBAL.LANGUAGES[hass.config.language] ? hass.config.language : DEF_LANG;
+        this._currentLanguage = LANG.getLanguage(hass.config.language);
         if (!this._hass || this._hass.entities !== hass.entities) {
             this._hass = hass;
             if (this._rendered) {
@@ -565,7 +573,7 @@ class HHAPersonCardEditor extends HTMLElement {
         `;
         colorSelect.appendChild(noColorOption);
 
-        GLOBAL.COLORS.forEach(color => {
+        GLOBAL.colors.forEach(color => {
             const option = document.createElement('mwc-list-item');
             option.value = color.value;
             option.innerHTML = `
@@ -581,17 +589,22 @@ class HHAPersonCardEditor extends HTMLElement {
         const value = this._config[name] || '';
 
         switch (type) {
-            case 'entity':
+            case 'person':
                 inputElement = document.createElement('ha-entity-picker');
                 inputElement.hass = this._hass;
+				inputElement.includeDomains = ['person', 'device_tracker'];
                 break;
+			case 'entity':
+				inputElement = document.createElement('ha-entity-picker');
+				inputElement.hass = this._hass;
+				break;
             case 'icon':
                 inputElement = document.createElement('ha-icon-picker');
                 break;
             case 'layout':
                 inputElement = document.createElement('ha-select');
                 inputElement.popperOptions = ""
-				UTILS.addChoices(inputElement, GLOBAL.LAYOUTS);
+				UTILS.addChoices(inputElement, GLOBAL.layouts);
                 inputElement.addEventListener('closed', (event) => {
                     event.stopPropagation();
                 });
@@ -609,13 +622,13 @@ class HHAPersonCardEditor extends HTMLElement {
                 inputElement.type = 'text';
         }
 
-        inputElement.style.display = GLOBAL.STYLE_EDIT.SHOWF;
+        inputElement.style.display = GLOBAL.styleEdit.SHOWF;
         inputElement.required = required;
         inputElement.label = label;
         inputElement.value = value;
 
         inputElement.addEventListener(
-            (type === 'color' || type === 'layout') ? 'selected' : (type === 'entity' || type === 'icon' ? 'value-changed' : 'input'),
+            (type === 'color' || type === 'layout') ? 'selected' : (type === 'entity' || type =='person' || type === 'icon' ? 'value-changed' : 'input'),
             (event) => {
                 const newValue = event.detail?.value || event.target.value;
                 this._updateConfigProperty(name, newValue);
@@ -641,7 +654,7 @@ class HHAPersonCardEditor extends HTMLElement {
             const ch = await window.loadCardHelpers();
             const c = await ch.createCardElement({ type: "entities", entities: [] });
             await c.constructor.getConfigElement();
-            const haEntityPicker = window.customElements.get("ha-entity-picker");
+			const haEntityPicker = window.customElements.get("ha-entity-picker");
         }
     }
 
@@ -657,7 +670,7 @@ class HHAPersonCardEditor extends HTMLElement {
         container.style.overflowX = 'hidden';
         container.style.maxHeight = '100vh';
 
-        GLOBAL.EDITOR_INPUT_FIELDS.PERSON_CARD.forEach((field) => {
+		EDITORS.personCard.inputFields.forEach((field) => {
             container.appendChild(this._createField({
                 name:field.name,
                 label:field.label[this._currentLanguage],
