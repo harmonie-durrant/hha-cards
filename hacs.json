@@ -1,4 +1,6 @@
 {
 	"name": "HHA Cards",
-	"filename": "index.js"
+	"render_readme": true,
+    "filename": "index.js",
+    "content_in_root": false
 }
