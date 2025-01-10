@@ -5,6 +5,9 @@ const GLOBAL = {
 		HIDE: 'none'
 	},
 	alertIcon: 'mdi:alert',
+	helpIcon: 'mdi:help',
+	awayIcon: 'mdi:home-export-outline',
+	homeIcon: 'mdi:home',
 	defaultColor: 'var(--state-icon-color)',
 	colors: [
 		{ name: 'Default', value: 'var(--state-icon-color)' },
@@ -56,14 +59,6 @@ const CARDS = {
 					en: 'Select an person.',
 					fr: 'Sélectionnez une personne.',
 				}},
-			{   name: 'charge_state_entity',
-				label: { en: 'Charge State Entity', fr: 'Entité pour l\'état de la charge' },
-				type: 'entity',
-				required: false,
-				description: {
-					en: 'Select a charge state entity.',
-					fr: 'Sélectionnez une entité pour voir l\'état de la charge.',
-				}},
 			{   name: 'name',
 				label: { en: 'Name', fr: 'Nom' },
 				type: 'text',
@@ -96,6 +91,22 @@ const CARDS = {
 					en: 'Select the primary color for the icon.',
 					fr: 'Sélectionnez la couleur principale de l\'icône.',
 				}},
+			{   name: 'charge_state_entity',
+				label: { en: 'Charge State Entity', fr: 'Entité pour l\'état de la charge' },
+				type: 'entity',
+				required: false,
+				description: {
+					en: 'Select a charge state entity.',
+					fr: 'Sélectionnez une entité pour voir l\'état de la charge.',
+				}},
+			{   name: 'charging_color',
+				label: { en: 'Charging color', fr: 'Couleur pour la charge' },
+				type: 'color',
+				required: false,
+				description: {
+					en: 'Select the color for the charging glow.',
+					fr: 'Sélectionnez la couleur pour la lueur de charge.',
+				}},
 		]
 	},
 	roomCard: {
@@ -103,23 +114,6 @@ const CARDS = {
 		name: "HHA Room Card",
 		description: "Get info about a room in your Home.",
 		inputFields: [
-			// TODO: hvac option for heating and cooling in one
-			{   name: 'heating',
-				label: { en: 'Heating toggle', fr: 'Toggle pour la chauffage.' },
-				type: 'bool',
-				required: false,
-				description: {
-					en: 'Select a switch or boolean selsor.',
-					fr: 'Sélectionnez une switch ou un sensor booléen.',
-				}},
-			{   name: 'cooling',
-				label: { en: 'Cooling toggle', fr: 'Toggle pour la climatisation.' },
-				type: 'bool',
-				required: false,
-				description: {
-					en: 'Select a switch or boolean selsor.',
-					fr: 'Sélectionnez une switch ou un sensor booléen.',
-				}},
 			{   name: 'name',
 				label: { en: 'Room Name', fr: 'Nom de la Pièce' },
 				type: 'text',
@@ -152,6 +146,39 @@ const CARDS = {
 					en: 'Select the primary color for the icon.',
 					fr: 'Sélectionnez la couleur principale de l\'icône.',
 				}},
+			// TODO: hvac option for heating and cooling in one
+			{   name: 'heating',
+				label: { en: 'Heating toggle', fr: 'Toggle pour la chauffage.' },
+				type: 'bool',
+				required: false,
+				description: {
+					en: 'Select a switch or boolean selsor.',
+					fr: 'Sélectionnez une switch ou un sensor booléen.',
+				}},
+			{   name: 'heating_color',
+				label: { en: 'Heating color', fr: 'Couleur pour la chauffage' },
+				type: 'color',
+				required: false,
+				description: {
+					en: 'Select the color for the heating glow.',
+					fr: 'Sélectionnez la couleur pour la lueur du chauffage.',
+				}},
+			{   name: 'cooling',
+				label: { en: 'Cooling toggle', fr: 'Toggle pour la climatisation.' },
+				type: 'bool',
+				required: false,
+				description: {
+					en: 'Select a switch or boolean selsor.',
+					fr: 'Sélectionnez une switch ou un sensor booléen.',
+				}},
+			{   name: 'cooling_color',
+				label: { en: 'Cooling color', fr: 'Couleur pour la climatisation' },
+				type: 'color',
+				required: false,
+				description: {
+					en: 'Select the color for the cooling glow.',
+					fr: 'Sélectionnez la couleur pour la lueur du climatisation.',
+				}},
 		]
 	}
 }
@@ -163,13 +190,19 @@ const LANG = {
 			ENTITY_ERROR: "The 'entity' parameter is required!",
 			ENTITY_NOTFOUND: "Entity not found in Home Assistant.",
 			UNAVAILABLE: "Unavailable",
-			NO_NAME: "The 'name' parameter is required!"
+			NO_NAME: "The 'name' parameter is required!",
+			AWAY: "away",
+			UNKNOWN: "unknown",
+			HOME: "home"
 		},
 		fr: {
 			ENTITY_ERROR: "Le paramètre 'entity' est requis !",
 			ENTITY_NOTFOUND: "Entité introuvable dans Home Assistant.",
 			UNAVAILABLE: "Indisponible",
-			NO_NAME: "Le paramètre 'name' est requis !"
+			NO_NAME: "Le paramètre 'name' est requis !",
+			AWAY: "sorti(e)",
+			UNKNOWN: "inconnu",
+			HOME: "à la maison"
 		}
 	},
 	getLanguage: (language) => {
@@ -214,29 +247,24 @@ const GLOW = {
 		}
 	`,
 	cssGlowStyles: () => {
-		let result = '';
-		for (const key in GLOW.colors) {
-			result = result + `
-				.glow-${key} {
-					animation: breathing-shadow-${key} 1.5s infinite alternate ease-in-out;
-				}
+		return (`
+			.glow {
+				animation: breathing-shadow 1.5s infinite alternate ease-in-out;
+			}
 
-				@keyframes breathing-shadow-${key} {
-					0% {
-						box-shadow: 0px 0px 10px 1px ${GLOW.colors[key]};
-					}
-					100% {
-						box-shadow: 0px 0px 13px 3px ${GLOW.colors[key]};
-					}
+			@keyframes breathing-shadow {
+				0% {
+					box-shadow: 0px 0px 10px 1px var(--glow-color);
 				}
-			`
-		};
-		result = result + `
+				100% {
+					box-shadow: 0px 0px 13px 3px var(--glow-color);
+				}
+			}
+
 			.glow-off {
 				animation: none;
 			}
-		`
-		return (result)
+		`)
 	},
 }
 
@@ -265,6 +293,9 @@ class HHAPersonCard extends HTMLElement {
 					<img src="" class="avatar"></img>
 					<div class="shape"></div>
 					<ha-icon class="icon"></ha-icon>
+					<div class="badge">
+						<ha-icon class="badge-icon"></ha-icon>
+					</div>
 				</div>
 
 				<!-- Section droite avec le texte -->
@@ -281,6 +312,7 @@ class HHAPersonCard extends HTMLElement {
 	getCSS() {
 		return (`
 			ha-card {
+				--glow-color: ${GLOW.colors.charging};
 				border: none;
 				height: 100%;
 				display: flex;
@@ -342,6 +374,25 @@ class HHAPersonCard extends HTMLElement {
 				z-index: 1;
 				width: 24px;
 				height: 24px;
+			}
+
+			.badge {
+				z-index: 2;
+				position: absolute;
+				top: -3px;
+				right: -3px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: rgb(76, 175, 80);
+				width: 16px;
+				height: 16px;
+				border-radius: 50%;
+				--mdc-icon-size: var(--badge-icon-size, 12px);
+			}
+
+			.badge-icon {
+				display: flex;
 			}
 
 			.right {
@@ -407,6 +458,8 @@ class HHAPersonCard extends HTMLElement {
 			name: "name",
 			status: "status",
 			alert: "alert",
+			badge: "badge",
+			badge_icon: "badge-icon",
 		}
 		this._layout_size = {
 			horizontal: { grid_rows: 1, grid_min_rows: 1, grid_columns: 2, grid_min_columns: 2 },
@@ -461,6 +514,8 @@ class HHAPersonCard extends HTMLElement {
 			[this._selectors.name]: this.shadowRoot.querySelector(`.${this._selectors.name}`),
 			[this._selectors.status]: this.shadowRoot.querySelector(`.${this._selectors.status}`),
 			[this._selectors.alert]: this.shadowRoot.querySelector(`.${this._selectors.alert}`),
+			[this._selectors.badge]: this.shadowRoot.querySelector(`.${this._selectors.badge}`),
+			[this._selectors.badge_icon]: this.shadowRoot.querySelector(`.${this._selectors.badge_icon}`),
 		};
 	}
 
@@ -496,8 +551,35 @@ class HHAPersonCard extends HTMLElement {
 		});
 
 		UTILS.updateElement(this._elements[this._selectors.status], (el) => {
-			el.textContent = entity.state || getMessage('UNAVAILABLE', this._currentLanguage);
+			if (!entity.state || entity.state == 'unavailable') {
+				el.textContent = getMessage('UNAVAILABLE', this._currentLanguage);
+			} else if (entity.state == 'home') {
+				el.textContent = getMessage('HOME', this._currentLanguage);
+			} else if (entity.state == 'unknown') {
+				el.textContent = getMessage('UNKNOWN', this._currentLanguage);
+			} else {
+				el.textContent = getMessage('AWAY', this._currentLanguage)
+			}
 		});
+		if (entity.state == 'home') {
+			this._elements[this._selectors.badge].style.display = GLOBAL.styleEdit.SHOWF;
+			UTILS.updateElement(this._elements[this._selectors.badge_icon], (el) => {
+				el.setAttribute('icon', GLOBAL.homeIcon);
+			});
+			UTILS.updateElement(this._elements[this._selectors.badge], (el) => {
+				el.style.backgroundColor = '#4CAF50';
+			});
+		} else if (entity.state == 'not_home') {
+			this._elements[this._selectors.badge].style.display = GLOBAL.styleEdit.SHOWF;
+			UTILS.updateElement(this._elements[this._selectors.badge_icon], (el) => {
+				el.setAttribute('icon', GLOBAL.awayIcon);
+			});
+			UTILS.updateElement(this._elements[this._selectors.badge], (el) => {
+				el.style.backgroundColor = "#F44336"
+			});
+		} else {
+			this._elements[this._selectors.badge].style.display = GLOBAL.styleEdit.HIDE;
+		}
 
 		var avatar = entity.attributes.entity_picture;
 		if (avatar) {
@@ -512,7 +594,7 @@ class HHAPersonCard extends HTMLElement {
 			this._elements[this._selectors.shape].style.display = GLOBAL.styleEdit.SHOW;
 			this._elements[this._selectors.icon].style.display = GLOBAL.styleEdit.SHOW;
 			UTILS.updateElement(this._elements[this._selectors.icon], (el) => {
-				el.setAttribute(this._selectors.icon, this._config.icon || entity.attributes.icon || GLOBAL.alertIcon);
+				el.setAttribute('icon', this._config.icon || entity.attributes.icon || GLOBAL.alertIcon);
 				el.style.color = this._config.color || GLOBAL.defaultColor;
 			});
 			UTILS.updateElement(this._elements[this._selectors.shape], (el) => {
@@ -524,8 +606,10 @@ class HHAPersonCard extends HTMLElement {
 		const charging = this._hass?.states[this._config.charge_state_entity]?.state || '';
 		if (charging == 'charging' || charging == 'Charging') {
 			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
-				el.classList.add('glow-charging');
+				el.classList.add('glow');
 				el.classList.remove('glow-off');
+				// Set the color for the glow
+				el.style.setProperty('--glow-color', this._config.charging_color || GLOW.colors.charging);
 			});
 		} else {
 			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
@@ -769,6 +853,7 @@ class HHARoomCard extends HTMLElement {
 	getCSS() {
 		return (`
 			ha-card {
+				--glow-color: ${GLOW.colors.heating};
 				border: none;
 				height: 100%;
 				display: flex;
@@ -973,6 +1058,7 @@ class HHARoomCard extends HTMLElement {
 			el.textContent = (heating == 'on' || heating == 'heating') ? "heating" : (cooling == 'on' || cooling == 'cooling') ? "cooling" : "Off";
 		});
 
+		// icon
 		UTILS.updateElement(this._elements[this._selectors.icon], (el) => {
 			el.setAttribute(this._selectors.icon, this._config.icon || GLOBAL.alertIcon);
 			el.style.color = this._config.color || GLOBAL.defaultColor;
@@ -983,13 +1069,17 @@ class HHARoomCard extends HTMLElement {
 
 		if (heating == 'on' || heating == 'heating') {
 			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
-				el.classList.add('glow-heating');
+				el.classList.add('glow');
 				el.classList.remove('glow-off');
+				// Set the color for the glow
+				el.style.setProperty('--glow-color', this._config.heating_color || GLOW.colors.heating);
 			});
 		} else if (cooling == 'on' || cooling == 'cooling') {
 			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
-				el.classList.add('glow-cooling');
+				el.classList.add('glow');
 				el.classList.remove('glow-off');
+				// Set the color for the glow
+				el.style.setProperty('--glow-color', this._config.cooling_color || GLOW.colors.cooling);
 			});
 		} else {
 			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
