@@ -28,34 +28,54 @@ or follow these steps:
 
 ### Manual Installation
 
-1. Download the file `dist/hha-cards.js` to the `/config/www/` directory in your Home Assistant setup.
-2. Add `/local/hha-cards.js` to your Lovelace resources
+1. Clone the repository into the `/config/www/` directory in your Home Assistant setup.
+2. Add `/local/hha-cards/dist/index.js` to your Lovelace resources
 ```yaml
-url: /local/hha-cards.js
+url: /local/hha-cards/dist/index.js
 type: module
 ```
-3. if you are updating just replace the old file with the new and refresh your cache
+3. if you are updating just replace the old file with the new and clear your browser cache.
 
 ## How to use
 
-Every card is available in the visual editor and has the following variables you can add to it:
-
-- `entity`: Target of the card
-- `layout`: 'horizontal' or 'vertical' layouts for the cards (optional, default: 'horizontal')
-- `icon`: Icon override
-- `color`: Icon color overrice
-
-## Cards List
+Every card is available in the visual editor, the setup is quite straightforward, but here is an example of how to use each card:
 
 ### Person Card
 
 ![Person card example](docs/examples/person.png)
 
-`charge_state_entity`: Battery state to track for the charging animation (optional, example: 'sensor.battery_state')
+```yaml
+type: custom:hha-person-card
+entity: person.harmonie
+charge_state_entity: sensor.harmonie_phone_battery_state
+layout: vertical
+charging_color: var(--pink-color)
+grid_options:
+  columns: 3
+  rows: 2
+```
+
+### Room Card
+
+![Room card example](docs/examples/room.png)
+
+```yaml
+type: custom:hha-room-card
+name: Harmonie's Room
+heating: input_boolean.harmonie_heating
+cooling: input_boolean.harmonie_cooling
+layout: horizontal
+icon: mdi:bed
+color: var(--pink-color)
+heating_color: var(--red-color)
+cooling_color: var(--info-color)
+```
 
 ## Contributing
 
 Feel free to fork this repo and submit your changes through pull requests, or to suggest a feature/report a bug, make an issue in the issues tab of this repository.
+
+When developing run `npm install` to setup the project, and `npm run build` or `npm run watch` to build the project. (The watch command will automatically rebuild the project when you save a file)
 
 ## Donate
 
