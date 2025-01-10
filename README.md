@@ -10,6 +10,7 @@ HHA Cards, `aka: Harmonie Home Assistant Cards`, is a collection of cool customi
 - [How To Use](#how-to-use)
 - [Cards List](#cards-list)
   - [Person Card](#person-card)
+  - [Room Card](#room-card)
 - [Contributing](#contributing)
 - [Donate](#donate)
 
