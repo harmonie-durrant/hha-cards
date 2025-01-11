@@ -1,7 +1,8 @@
-import { HHAPersonCard } from './cards/person-card/card.js';
-import { HHARoomCard } from './cards/room-card/card.js';
-import { HHAPersonCardEditor } from './cards/person-card/editor.js';
-import { HHARoomCardEditor } from './cards/room-card/editor.js';
+import {
+	HHAPersonCard, HHAPersonCardEditor,
+	HHARoomCard, HHARoomCardEditor
+} from './cards';
+
 import { CARDS } from './constants.js';
 
 const add_card = (card, cardClass, editorClass) => {
