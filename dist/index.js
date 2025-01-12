@@ -866,6 +866,10 @@ class $3a98db7cf4537cf5$export$a6f3b6d8cfe91fa4 extends HTMLElement {
             el.classList.remove('glow-heating');
             el.classList.remove('glow-cooling');
         });
+        // Pointer
+        (0, $6f7bb9e4197d1082$export$baddb3df286a0284).updateElement(this._elements[this._selectors.container], (el)=>{
+            el.style.cursor = this._config && this._config.redirect ? 'pointer' : 'default';
+        });
     }
     _showError(message) {
         const alertElement = this._elements[this._selectors.alert];
