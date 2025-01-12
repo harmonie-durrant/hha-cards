@@ -11,6 +11,7 @@ HHA Cards, `aka: Harmonie Home Assistant Cards`, is a collection of cool customi
 - [Cards List](#cards-list)
   - [Person Card](#person-card)
   - [Room Card](#room-card)
+  - [Automation Card](#automation-card)
 - [Contributing](#contributing)
 - [Donate](#donate)
 
@@ -70,6 +71,16 @@ icon: mdi:bed
 color: var(--pink-color)
 heating_color: var(--red-color)
 cooling_color: var(--info-color)
+```
+
+### Automation Card
+
+![Automation card example](docs/examples/automation.png)
+
+```yaml
+type: custom:hha-automation-card
+entity: automation.new_automation
+name: Test Automation
 ```
 
 ## Contributing
