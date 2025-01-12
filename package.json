@@ -1,6 +1,6 @@
 {
 	"source": "src/index.js",
-	"module": "dist/card.js",
+	"module": "dist/index.js",
 	"targets": {
 		"module": {
 			"includeNodeModules": true
