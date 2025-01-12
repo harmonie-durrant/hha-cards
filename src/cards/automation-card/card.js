@@ -3,9 +3,9 @@ import { getMessage } from '../../utils.js';
 import html from "bundle-text:./card.html";
 import css from "bundle-text:./card.css";
 
-const CARD_DATA = CARDS.roomCard;
+const CARD_DATA = CARDS.automationCard;
 
-export class HHARoomCard extends HTMLElement {
+export class HHAAutomationCard extends HTMLElement {
 
 	constructor() {
 		super();
@@ -33,7 +33,7 @@ export class HHARoomCard extends HTMLElement {
 			horizontal: { grid_rows: 1, grid_min_rows: 1, grid_columns: 2, grid_min_columns: 2 },
 			vertical:   { grid_rows: 2, grid_min_rows: 2, grid_columns: 1, grid_min_columns: 1 }
 		}
-		this.addEventListener('click', this._navigate.bind(this));
+		this.addEventListener('click', this._showMoreInfo.bind(this));
 	}
 
 	static getConfigElement() {
@@ -43,10 +43,6 @@ export class HHARoomCard extends HTMLElement {
 	setConfig(config) {
 		const layoutChanged = this._config?.layout !== config.layout;
 		this._config = config;
-		this._max_value = this._config.max_value;
-		if (this._config.unit) {
-			this._unit = this._config.unit;
-		}
 		if (!this._isBuilt) {
 			this._isBuilt = true;
 			this._buildCard();
@@ -100,57 +96,33 @@ export class HHARoomCard extends HTMLElement {
 	}
 
 	_updateDynamicElements() {
-		if (!this._config.name) {
-			this._showError(getMessage('NO_NAME', this._currentLanguage));
+		if (!this._config.entity) {
+			this._showError(getMessage('ENTITY_ERROR', this._currentLanguage));
+			return;
+		}
+		this._hideError();
+		const entity = this._hass?.states[this._config.entity];
+		if (!entity) {
+			this._showError(getMessage('ENTITY_NOTFOUND', this._currentLanguage));
 			return;
 		}
 		this._hideError();
 
 		UTILS.updateElement(this._elements[this._selectors.name], (el) => {
-			el.textContent = this._config.name || getMessage('UNAVAILABLE', this._currentLanguage);
+			el.textContent = this._config.name || entity.attributes.friendly_name || this._config.entity;
 		});
 
-		// const climate = this._hass?.states[this._config.climate]?.state || '';
-		const heating = this._hass?.states[this._config.heating]?.state || '';
-		const cooling = this._hass?.states[this._config.cooling]?.state || '';
 		UTILS.updateElement(this._elements[this._selectors.status], (el) => {
-			el.textContent = (heating == 'on' || heating == 'heating') ? "heating" : (cooling == 'on' || cooling == 'cooling') ? "cooling" : "Off";
+			el.textContent = entity.state || getMessage('UNAVAILABLE', this._currentLanguage);
 		});
 
 		// icon
 		UTILS.updateElement(this._elements[this._selectors.icon], (el) => {
-			el.setAttribute(this._selectors.icon, this._config.icon || GLOBAL.alertIcon);
+			el.setAttribute(this._selectors.icon, this._config.icon || GLOBAL.autoIcon);
 			el.style.color = this._config.color || GLOBAL.defaultColor;
 		});
 		UTILS.updateElement(this._elements[this._selectors.shape], (el) => {
 			el.style.backgroundColor = this._config.color || GLOBAL.defaultColor;
-		});
-
-		if (heating == 'on' || heating == 'heating') {
-			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
-				el.classList.add('glow');
-				el.classList.remove('glow-off');
-				// Set the color for the glow
-				el.style.setProperty('--glow-color', this._config.heating_color || GLOW.colors.heating);
-			});
-		} else if (cooling == 'on' || cooling == 'cooling') {
-			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
-				el.classList.add('glow');
-				el.classList.remove('glow-off');
-				// Set the color for the glow
-				el.style.setProperty('--glow-color', this._config.cooling_color || GLOW.colors.cooling);
-			});
-		} else {
-			UTILS.updateElement(this._elements[this._selectors.root], (el) => {
-				el.classList.add('glow-off');
-				el.classList.remove('glow-heating');
-				el.classList.remove('glow-cooling');
-			});
-		}
-
-		// Pointer
-		UTILS.updateElement(this._elements[this._selectors.container], (el) => {
-			el.style.cursor = (this._config && this._config.redirect) ? 'pointer' : 'default';
 		});
 	}
 
@@ -169,14 +141,13 @@ export class HHARoomCard extends HTMLElement {
 		}
 	}
 
-	_navigate() {
-        if (this._config && this._config.redirect) {
-			// dont refresh page to navigate if redirect starts with #
-			if (this._config.redirect.startsWith('#')) {
-				window.location.href = this._config.redirect;
-				return;
-			}
-			window.open(this._config.redirect, '_blank');
+	_showMoreInfo() {
+        if (this._config && this._config.entity) {
+            this.dispatchEvent(new CustomEvent('hass-more-info', {
+                bubbles: true,
+                composed: true,
+                detail: { entityId: this._config.entity },
+            }));
         }
     }
 

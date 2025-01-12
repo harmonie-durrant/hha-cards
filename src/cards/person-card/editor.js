@@ -1,5 +1,7 @@
 import { GLOBAL, CARDS, LANG, UTILS } from '../../constants.js';
 
+const CARD_FIELDS = CARDS.personCard.inputFields;
+
 export class HHAPersonCardEditor extends HTMLElement {
 
 	constructor() {
@@ -162,7 +164,7 @@ export class HHAPersonCardEditor extends HTMLElement {
 		container.style.overflowX = 'hidden';
 		container.style.maxHeight = '100vh';
 
-		CARDS.personCard.inputFields.forEach((field) => {
+		CARD_FIELDS.forEach((field) => {
 			container.appendChild(this._createField({
 				name:field.name,
 				label:field.label[this._currentLanguage],

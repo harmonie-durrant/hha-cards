@@ -1,8 +1,8 @@
 import { GLOBAL, CARDS, LANG, UTILS } from '../../constants.js';
 
-const CARD_FIELDS = CARDS.roomCard.inputFields;
+const CARD_FIELDS = CARDS.automationCard.inputFields;
 
-export class HHARoomCardEditor extends HTMLElement {
+export class HHAAutomationCardEditor extends HTMLElement {
 
 	constructor() {
 		super();
@@ -83,15 +83,10 @@ export class HHARoomCardEditor extends HTMLElement {
 		const value = this._config[name] || '';
 
 		switch (type) {
-			// case 'hvac': (not implemented yet)
-			// 	inputElement = document.createElement('ha-entity-picker');
-			// 	inputElement.hass = this._hass;
-			// 	inputElement.includeDomains = ['climate'];
-			// 	break;
-			case 'bool':
+			case 'automation':
 				inputElement = document.createElement('ha-entity-picker');
 				inputElement.hass = this._hass;
-				inputElement.includeDomains = ['input_boolean', 'switch'];
+				inputElement.includeDomains = ['automation'];
 				break;
 			case 'person':
 				inputElement = document.createElement('ha-entity-picker');

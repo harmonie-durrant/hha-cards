@@ -3,6 +3,8 @@ import { getMessage } from '../../utils.js';
 import html from "bundle-text:./card.html";
 import css from "bundle-text:./card.css";
 
+const CARD_DATA = CARDS.personCard;
+
 export class HHAPersonCard extends HTMLElement {
 
 	constructor() {
@@ -13,8 +15,8 @@ export class HHAPersonCard extends HTMLElement {
 		this._elements = {};
 		this._isBuilt = false;
 		this._config = {
-			slug: CARDS.personCard.type,
-			name: CARDS.personCard.name
+			slug: CARD_DATA.type,
+			name: CARD_DATA.name
 		};
 		this._selectors = {
 			container: "container",
@@ -33,19 +35,16 @@ export class HHAPersonCard extends HTMLElement {
 			horizontal: { grid_rows: 1, grid_min_rows: 1, grid_columns: 2, grid_min_columns: 2 },
 			vertical:   { grid_rows: 2, grid_min_rows: 2, grid_columns: 1, grid_min_columns: 1 }
 		}
+		this.addEventListener('click', this._showMoreInfo.bind(this));
 	}
 
 	static getConfigElement() {
-		return document.createElement(`${CARDS.personCard.type}-editor`);
+		return document.createElement(`${CARD_DATA.type}-editor`);
 	}
 
 	setConfig(config) {
 		const layoutChanged = this._config?.layout !== config.layout;
 		this._config = config;
-		this._max_value = this._config.max_value;
-		if (this._config.unit) {
-			this._unit = this._config.unit;
-		}
 		if (!this._isBuilt) {
 			this._isBuilt = true;
 			this._buildCard();
@@ -201,6 +200,16 @@ export class HHAPersonCard extends HTMLElement {
 			alertElement.style.display = 'none';
 		}
 	}
+
+	_showMoreInfo() {
+        if (this._config && this._config.entity) {
+            this.dispatchEvent(new CustomEvent('hass-more-info', {
+                bubbles: true,
+                composed: true,
+                detail: { entityId: this._config.entity },
+            }));
+        }
+    }
 
 	getCardSize() {
 		if (this._config.layout === GLOBAL.layouts[1].value) {

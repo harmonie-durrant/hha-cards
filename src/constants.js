@@ -5,6 +5,7 @@ export const GLOBAL = {
 		SHOWF: 'flex',
 		HIDE: 'none'
 	},
+	autoIcon: 'mdi:auto-mode',
 	alertIcon: 'mdi:alert',
 	helpIcon: 'mdi:help',
 	awayIcon: 'mdi:home-export-outline',
@@ -147,6 +148,14 @@ export const CARDS = {
 					en: 'Select the primary color for the icon.',
 					fr: 'Sélectionnez la couleur principale de l\'icône.',
 				}},
+			{   name: 'redirect',
+				label: { en: 'Redirect URL', fr: 'URL de redirection' },
+				type: 'text',
+				required: false,
+				description: {
+					en: 'Enter a URL to redirect to.',
+					fr: 'Saisissez une URL pour rediriger.',
+				}},
 			// TODO: hvac option for heating and cooling in one
 			{   name: 'heating',
 				label: { en: 'Heating toggle', fr: 'Toggle pour la chauffage.' },
@@ -179,6 +188,53 @@ export const CARDS = {
 				description: {
 					en: 'Select the color for the cooling glow.',
 					fr: 'Sélectionnez la couleur pour la lueur du climatisation.',
+				}},
+		]
+	},
+	automationCard: {
+		type: "hha-automation-card",
+		name: "HHA Automation Card",
+		description: "Get info about automations in your Home.",
+		inputFields: [
+			{   name: 'entity',
+				label: { en: 'Automation', fr: 'Automatisation' },
+				type: 'automation',
+				required: true,
+				description: {
+					en: 'Enter an automation entity.',
+					fr: 'Saisissez une entité d\'automatisation.',
+				}},
+			{   name: 'name',
+				label: { en: 'Automation Name', fr: 'Nom de l\'automatisation' },
+				type: 'text',
+				required: false,
+				description: {
+					en: 'Enter a name for the automation.',
+					fr: 'Saisissez un nom pour l\'automatisation.',
+				}},
+			{   name: 'layout',
+				label: { en: 'Layout', fr: 'Disposition' },
+				type: 'layout',
+				required: false,
+				description: {
+					en: 'Select the layout.',
+					fr: 'Sélectionnez la disposition.',
+				}},
+			{   name: 'icon',
+				label: { en: 'Icon', fr: 'Icône' },
+				type: 'icon',
+				required: false,
+				description: {
+					en: 'Select an icon for the entity.',
+					fr: 'Sélectionnez une icône pour l\'entité.',
+				}},
+			{   name: 'color',
+				label: { en: 'Primary color', fr: 'Couleur de l\'icône' },
+				type: 'color',
+				required: false,
+				description: {
+					en: 'Select the primary color for the icon.',
+					fr: 'Sélectionnez la couleur principale de l\'icône.',
 				}},
 		]
 	}
