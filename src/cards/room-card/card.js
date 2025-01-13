@@ -171,6 +171,14 @@ export class HHARoomCard extends HTMLElement {
 
 	_navigate() {
         if (this._config && this._config.redirect) {
+			if (this._config.redirect.startsWith('#')) {
+				const element = document.querySelector(this._config.redirect);
+				if (element)
+					element.scrollIntoView({ behavior: 'smooth' });
+				return;
+			}
+			window.history.pushState({}, '', this._config.redirect);
+			this.dispatchEvent(new CustomEvent('location-changed', { bubbles: true, composed: true, detail: { path: this._config.redirect } }));
 			window.location.href = this._config.redirect;
         }
     }
