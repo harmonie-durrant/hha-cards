@@ -883,14 +883,7 @@ class $3a98db7cf4537cf5$export$a6f3b6d8cfe91fa4 extends HTMLElement {
         if (alertElement) alertElement.style.display = 'none';
     }
     _navigate() {
-        if (this._config && this._config.redirect) {
-            // dont refresh page to navigate if redirect starts with #
-            if (this._config.redirect.startsWith('#')) {
-                window.location.href = this._config.redirect;
-                return;
-            }
-            window.open(this._config.redirect, '_blank');
-        }
+        if (this._config && this._config.redirect) window.location.href = this._config.redirect;
     }
     getCardSize() {
         if (this._config.layout === (0, $6f7bb9e4197d1082$export$17ff3f7e02c6ac22).layouts[1].value) return this._layout_size.vertical.grid_rows;
@@ -1021,7 +1014,23 @@ class $7769f3d3893bce30$export$d0f2c6a290ca64b6 extends HTMLElement {
             el.textContent = this._config.name || entity.attributes.friendly_name || this._config.entity;
         });
         (0, $6f7bb9e4197d1082$export$baddb3df286a0284).updateElement(this._elements[this._selectors.status], (el)=>{
-            el.textContent = entity.state || (0, $88fd31ba9313240f$export$2e51780da3c3a61)('UNAVAILABLE', this._currentLanguage);
+            var last_triggered = "";
+            // example: "5 minutes ago" "2 days ago" "5 hours ago"
+            if (entity.attributes.last_triggered) {
+                const last_triggered_date = new Date(entity.attributes.last_triggered);
+                const now = new Date();
+                const diff = now - last_triggered_date;
+                const diff_in_minutes = Math.floor(diff / 60000);
+                const diff_in_hours = Math.floor(diff_in_minutes / 60);
+                const diff_in_days = Math.floor(diff_in_hours / 24);
+                if (diff_in_days > 0) last_triggered = diff_in_days + " days ago";
+                else if (diff_in_hours > 0) last_triggered = diff_in_hours + " hours ago";
+                else if (diff_in_minutes > 0) last_triggered = diff_in_minutes + " minutes ago";
+                else last_triggered = "less than a minute ago";
+            }
+            if (!entity.state) el.textContent = (0, $88fd31ba9313240f$export$2e51780da3c3a61)('UNAVAILABLE', this._currentLanguage);
+            else if (entity.state === 'on' && entity.attributes.last_triggered && last_triggered) el.textContent = entity.state + " \u2022 " + last_triggered;
+            else el.textContent = entity.state;
         });
         // icon
         (0, $6f7bb9e4197d1082$export$baddb3df286a0284).updateElement(this._elements[this._selectors.icon], (el)=>{

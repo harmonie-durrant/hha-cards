@@ -171,12 +171,7 @@ export class HHARoomCard extends HTMLElement {
 
 	_navigate() {
         if (this._config && this._config.redirect) {
-			// dont refresh page to navigate if redirect starts with #
-			if (this._config.redirect.startsWith('#')) {
-				window.location.href = this._config.redirect;
-				return;
-			}
-			window.open(this._config.redirect, '_blank');
+			window.location.href = this._config.redirect;
         }
     }
 

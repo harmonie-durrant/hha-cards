@@ -113,7 +113,32 @@ export class HHAAutomationCard extends HTMLElement {
 		});
 
 		UTILS.updateElement(this._elements[this._selectors.status], (el) => {
-			el.textContent = entity.state || getMessage('UNAVAILABLE', this._currentLanguage);
+			var last_triggered = "";
+			// example: "5 minutes ago" "2 days ago" "5 hours ago"
+			if (entity.attributes.last_triggered) {
+				const last_triggered_date = new Date(entity.attributes.last_triggered);
+				const now = new Date()
+				const diff = now - last_triggered_date;
+				const diff_in_minutes = Math.floor(diff / 60000);
+				const diff_in_hours = Math.floor(diff_in_minutes / 60);
+				const diff_in_days = Math.floor(diff_in_hours / 24);
+				if (diff_in_days > 0) {
+					last_triggered = diff_in_days + " days ago";
+				} else if (diff_in_hours > 0) {
+					last_triggered = diff_in_hours + " hours ago";
+				} else if (diff_in_minutes > 0) {
+					last_triggered = diff_in_minutes + " minutes ago";
+				} else {
+					last_triggered = "less than a minute ago";
+				}
+			}
+			if (!entity.state) {
+				el.textContent = getMessage('UNAVAILABLE', this._currentLanguage);
+			} else if (entity.state === 'on' && entity.attributes.last_triggered && last_triggered) {
+				el.textContent = entity.state + ' • ' + last_triggered;
+			} else {
+				el.textContent = entity.state;
+			}
 		});
 
 		// icon
