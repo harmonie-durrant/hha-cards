@@ -515,12 +515,12 @@ const $6f7bb9e4197d1082$export$41842ee8fe7a2916 = {
 const $88fd31ba9313240f$export$2e51780da3c3a61 = (key, lang)=>(0, $6f7bb9e4197d1082$export$ce37e184d908d785).messages[lang]?.[key] || (0, $6f7bb9e4197d1082$export$ce37e184d908d785).messages[(0, $6f7bb9e4197d1082$export$ce37e184d908d785).default]?.[key] || '';
 
 
-var $c8b68c45bd35b693$exports = {};
-$c8b68c45bd35b693$exports = "<!-- Main container -->\r\n<div class=\"container\">\r\n\t<!-- Icon Section (avatar or icon) -->\r\n\t<div class=\"left\">\r\n\t\t<img class=\"avatar\" alt=\"avatar\">\r\n\t\t<div class=\"shape\"></div>\r\n\t\t<ha-icon class=\"icon\"></ha-icon>\r\n\t\t<div class=\"badge\">\r\n\t\t\t<ha-icon class=\"badge-icon\"></ha-icon>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- Section droite avec le texte -->\r\n\t<div class=\"right\">\r\n\t\t<div class=\"name\"></div>\r\n\t\t<div class=\"status\"></div>\r\n\t</div>\r\n</div>\r\n<!-- HA Alert -->\r\n<ha-alert style=\"display: none\" type=\"error\"></ha-alert><script src=\"/card.f6a55a20.js\"></script>";
+var $c57e73f47c5abc28$exports = {};
+$c57e73f47c5abc28$exports = "<!-- Main container -->\n<div class=\"container\">\n\t<!-- Icon Section (avatar or icon) -->\n\t<div class=\"left\">\n\t\t<img class=\"avatar\" alt=\"avatar\">\n\t\t<div class=\"shape\"></div>\n\t\t<ha-icon class=\"icon\"></ha-icon>\n\t\t<div class=\"badge\">\n\t\t\t<ha-icon class=\"badge-icon\"></ha-icon>\n\t\t</div>\n\t</div>\n\n\t<!-- Section droite avec le texte -->\n\t<div class=\"right\">\n\t\t<div class=\"name\"></div>\n\t\t<div class=\"status\"></div>\n\t</div>\n</div>\n<!-- HA Alert -->\n<ha-alert style=\"display: none\" type=\"error\"></ha-alert>";
 
 
-var $fd6996cfe1945934$exports = {};
-$fd6996cfe1945934$exports = "ha-card {\n  --glow-color: \"#00FF00\";\n  box-sizing: border-box;\n  border: none;\n  border-radius: 8px;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  max-width: 600px;\n  height: 100%;\n  margin: 0 auto;\n  padding: 0;\n  display: flex;\n}\n\n.container {\n  cursor: pointer;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  height: 100%;\n  margin: 7px 10px;\n  padding: 0;\n  display: flex;\n  overflow: hidden;\n}\n\n.left {\n  flex-shrink: 0;\n  justify-content: center;\n  align-items: center;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  position: relative;\n}\n\n.shape {\n  background-color: var(--state-icon-color);\n  opacity: .2;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: block;\n  position: absolute;\n}\n\n.avatar {\n  aspect-ratio: 1;\n  object-fit: fill;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: none;\n  position: absolute;\n}\n\n.icon {\n  z-index: 1;\n  width: 24px;\n  height: 24px;\n  position: relative;\n}\n\n.badge {\n  z-index: 2;\n  --mdc-icon-size: var(--badge-icon-size, 12px);\n  background-color: #4caf50;\n  border-radius: 50%;\n  justify-content: center;\n  align-items: center;\n  width: 16px;\n  height: 16px;\n  display: flex;\n  position: absolute;\n  top: -3px;\n  right: -3px;\n}\n\n.badge-icon {\n  display: flex;\n}\n\n.right {\n  flex-direction: column;\n  flex-grow: 1;\n  justify-content: flex-start;\n  width: 100%;\n  display: flex;\n  overflow: hidden;\n}\n\n.name {\n  color: var(--primary-text-color);\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  font-size: 1em;\n  font-weight: bold;\n  overflow: hidden;\n}\n\n.status {\n  color: var(--primary-text-color);\n  text-overflow: ellipsis;\n  font-size: .9em;\n}\n\nha-alert {\n  z-index: 10;\n  background-color: #000;\n  justify-content: center;\n  align-items: center;\n  width: 105%;\n  height: 110%;\n  display: flex;\n  position: absolute;\n  top: -1px;\n  left: -2px;\n}\n";
+var $b4113f512f2a06f5$exports = {};
+$b4113f512f2a06f5$exports = "ha-card {\n  --glow-color: \"#00FF00\";\n  box-sizing: border-box;\n  border: none;\n  border-radius: 8px;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  max-width: 600px;\n  height: 100%;\n  margin: 0 auto;\n  padding: 0;\n  display: flex;\n}\n\n.container {\n  cursor: pointer;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  height: 100%;\n  margin: 7px 10px;\n  padding: 0;\n  display: flex;\n  overflow: hidden;\n}\n\n.left {\n  flex-shrink: 0;\n  justify-content: center;\n  align-items: center;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  position: relative;\n}\n\n.shape {\n  background-color: var(--state-icon-color);\n  opacity: .2;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: block;\n  position: absolute;\n}\n\n.avatar {\n  aspect-ratio: 1;\n  object-fit: fill;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: none;\n  position: absolute;\n}\n\n.icon {\n  z-index: 1;\n  width: 24px;\n  height: 24px;\n  position: relative;\n}\n\n.badge {\n  z-index: 2;\n  --mdc-icon-size: var(--badge-icon-size, 12px);\n  background-color: #4caf50;\n  border-radius: 50%;\n  justify-content: center;\n  align-items: center;\n  width: 16px;\n  height: 16px;\n  display: flex;\n  position: absolute;\n  top: -3px;\n  right: -3px;\n}\n\n.badge-icon {\n  display: flex;\n}\n\n.right {\n  flex-direction: column;\n  flex-grow: 1;\n  justify-content: flex-start;\n  width: 100%;\n  display: flex;\n  overflow: hidden;\n}\n\n.name {\n  color: var(--primary-text-color);\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  font-size: 1em;\n  font-weight: bold;\n  overflow: hidden;\n}\n\n.status {\n  color: var(--primary-text-color);\n  text-overflow: ellipsis;\n  font-size: .9em;\n}\n\nha-alert {\n  z-index: 10;\n  background-color: #000;\n  justify-content: center;\n  align-items: center;\n  width: 105%;\n  height: 110%;\n  display: flex;\n  position: absolute;\n  top: -1px;\n  left: -2px;\n}\n";
 
 
 const $261d4ffc75f45809$var$CARD_DATA = (0, $6f7bb9e4197d1082$export$5f768699f44cc740).personCard;
@@ -587,9 +587,9 @@ class $261d4ffc75f45809$export$ad7810377d4d2567 extends HTMLElement {
     _buildCard() {
         const wrapper = document.createElement('ha-card');
         wrapper.classList.add(this._config.slug);
-        wrapper.innerHTML = (0, (/*@__PURE__*/$parcel$interopDefault($c8b68c45bd35b693$exports)));
+        wrapper.innerHTML = (0, (/*@__PURE__*/$parcel$interopDefault($c57e73f47c5abc28$exports)));
         const style = document.createElement('style');
-        style.textContent = (0, (/*@__PURE__*/$parcel$interopDefault($fd6996cfe1945934$exports))) + (0, $6f7bb9e4197d1082$export$41842ee8fe7a2916).cssGlowStyles();
+        style.textContent = (0, (/*@__PURE__*/$parcel$interopDefault($b4113f512f2a06f5$exports))) + (0, $6f7bb9e4197d1082$export$41842ee8fe7a2916).cssGlowStyles();
         this.shadowRoot.innerHTML = '';
         this.shadowRoot.appendChild(style);
         this.shadowRoot.appendChild(wrapper);
@@ -724,12 +724,12 @@ class $261d4ffc75f45809$export$ad7810377d4d2567 extends HTMLElement {
 
 
 
-var $ad233402d5ceb9b9$exports = {};
-$ad233402d5ceb9b9$exports = "<!-- Main container -->\r\n<div class=\"container\">\r\n\t<!-- Icon Section (avatar or icon) -->\r\n\t<div class=\"left\">\r\n\t\t<div class=\"shape\"></div>\r\n\t\t<ha-icon class=\"icon\"></ha-icon>\r\n\t</div>\r\n\r\n\t<!-- Section droite avec le texte -->\r\n\t<div class=\"right\">\r\n\t\t<div class=\"name\"></div>\r\n\t\t<div class=\"status\"></div>\r\n\t</div>\r\n</div>\r\n<!-- HA Alert -->\r\n<ha-alert style=\"display: none\" type=\"error\"></ha-alert><script src=\"/card.1439a8ac.js\"></script>";
+var $8dda955a33f9837d$exports = {};
+$8dda955a33f9837d$exports = "<!-- Main container -->\n<div class=\"container\">\n\t<!-- Icon Section (avatar or icon) -->\n\t<div class=\"left\">\n\t\t<div class=\"shape\"></div>\n\t\t<ha-icon class=\"icon\"></ha-icon>\n\t</div>\n\n\t<!-- Section droite avec le texte -->\n\t<div class=\"right\">\n\t\t<div class=\"name\"></div>\n\t\t<div class=\"status\"></div>\n\t</div>\n</div>\n<!-- HA Alert -->\n<ha-alert style=\"display: none\" type=\"error\"></ha-alert>";
 
 
-var $3506481bf3e6fd87$exports = {};
-$3506481bf3e6fd87$exports = "ha-card {\n  --glow-color: \"#FF4D00\";\n  box-sizing: border-box;\n  border: none;\n  border-radius: 8px;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  max-width: 600px;\n  height: 100%;\n  margin: 0 auto;\n  padding: 0;\n  display: flex;\n}\n\n.container {\n  cursor: pointer;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  height: 100%;\n  margin: 7px 10px;\n  padding: 0;\n  display: flex;\n  overflow: hidden;\n}\n\n.left {\n  flex-shrink: 0;\n  justify-content: center;\n  align-items: center;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  position: relative;\n}\n\n.shape {\n  background-color: var(--state-icon-color);\n  opacity: .2;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: block;\n  position: absolute;\n}\n\n.icon {\n  z-index: 1;\n  width: 24px;\n  height: 24px;\n  position: relative;\n}\n\n.right {\n  flex-direction: column;\n  flex-grow: 1;\n  justify-content: flex-start;\n  width: 100%;\n  display: flex;\n  overflow: hidden;\n}\n\n.name {\n  color: var(--primary-text-color);\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  font-size: 1em;\n  font-weight: bold;\n  overflow: hidden;\n}\n\n.status {\n  color: var(--primary-text-color);\n  text-overflow: ellipsis;\n  font-size: .9em;\n}\n\nha-alert {\n  z-index: 10;\n  background-color: #000;\n  justify-content: center;\n  align-items: center;\n  width: 105%;\n  height: 110%;\n  display: flex;\n  position: absolute;\n  top: -1px;\n  left: -2px;\n}\n";
+var $5725b9e281837402$exports = {};
+$5725b9e281837402$exports = "ha-card {\n  --glow-color: \"#FF4D00\";\n  box-sizing: border-box;\n  border: none;\n  border-radius: 8px;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  max-width: 600px;\n  height: 100%;\n  margin: 0 auto;\n  padding: 0;\n  display: flex;\n}\n\n.container {\n  cursor: pointer;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  height: 100%;\n  margin: 7px 10px;\n  padding: 0;\n  display: flex;\n  overflow: hidden;\n}\n\n.left {\n  flex-shrink: 0;\n  justify-content: center;\n  align-items: center;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  position: relative;\n}\n\n.shape {\n  background-color: var(--state-icon-color);\n  opacity: .2;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: block;\n  position: absolute;\n}\n\n.icon {\n  z-index: 1;\n  width: 24px;\n  height: 24px;\n  position: relative;\n}\n\n.right {\n  flex-direction: column;\n  flex-grow: 1;\n  justify-content: flex-start;\n  width: 100%;\n  display: flex;\n  overflow: hidden;\n}\n\n.name {\n  color: var(--primary-text-color);\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  font-size: 1em;\n  font-weight: bold;\n  overflow: hidden;\n}\n\n.status {\n  color: var(--primary-text-color);\n  text-overflow: ellipsis;\n  font-size: .9em;\n}\n\nha-alert {\n  z-index: 10;\n  background-color: #000;\n  justify-content: center;\n  align-items: center;\n  width: 105%;\n  height: 110%;\n  display: flex;\n  position: absolute;\n  top: -1px;\n  left: -2px;\n}\n";
 
 
 const $3a98db7cf4537cf5$var$CARD_DATA = (0, $6f7bb9e4197d1082$export$5f768699f44cc740).roomCard;
@@ -796,9 +796,9 @@ class $3a98db7cf4537cf5$export$a6f3b6d8cfe91fa4 extends HTMLElement {
     _buildCard() {
         const wrapper = document.createElement('ha-card');
         wrapper.classList.add(this._config.slug);
-        wrapper.innerHTML = (0, (/*@__PURE__*/$parcel$interopDefault($ad233402d5ceb9b9$exports)));
+        wrapper.innerHTML = (0, (/*@__PURE__*/$parcel$interopDefault($8dda955a33f9837d$exports)));
         const style = document.createElement('style');
-        style.textContent = (0, (/*@__PURE__*/$parcel$interopDefault($3506481bf3e6fd87$exports))) + (0, $6f7bb9e4197d1082$export$41842ee8fe7a2916).cssGlowStyles();
+        style.textContent = (0, (/*@__PURE__*/$parcel$interopDefault($5725b9e281837402$exports))) + (0, $6f7bb9e4197d1082$export$41842ee8fe7a2916).cssGlowStyles();
         this.shadowRoot.innerHTML = '';
         this.shadowRoot.appendChild(style);
         this.shadowRoot.appendChild(wrapper);
@@ -883,7 +883,24 @@ class $3a98db7cf4537cf5$export$a6f3b6d8cfe91fa4 extends HTMLElement {
         if (alertElement) alertElement.style.display = 'none';
     }
     _navigate() {
-        if (this._config && this._config.redirect) window.location.href = this._config.redirect;
+        if (this._config && this._config.redirect) {
+            if (this._config.redirect.startsWith('#')) {
+                const element = document.querySelector(this._config.redirect);
+                if (element) element.scrollIntoView({
+                    behavior: 'smooth'
+                });
+                return;
+            }
+            window.history.pushState({}, '', this._config.redirect);
+            this.dispatchEvent(new CustomEvent('location-changed', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    path: this._config.redirect
+                }
+            }));
+            window.location.href = this._config.redirect;
+        }
     }
     getCardSize() {
         if (this._config.layout === (0, $6f7bb9e4197d1082$export$17ff3f7e02c6ac22).layouts[1].value) return this._layout_size.vertical.grid_rows;
@@ -898,12 +915,12 @@ class $3a98db7cf4537cf5$export$a6f3b6d8cfe91fa4 extends HTMLElement {
 
 
 
-var $f852706b81d5457b$exports = {};
-$f852706b81d5457b$exports = "<!-- Main container -->\r\n<div class=\"container\">\r\n\t<!-- Icon Section (avatar or icon) -->\r\n\t<div class=\"left\">\r\n\t\t<img class=\"avatar\" alt=\"avatar\">\r\n\t\t<div class=\"shape\"></div>\r\n\t\t<ha-icon class=\"icon\"></ha-icon>\r\n\t</div>\r\n\r\n\t<!-- Section droite avec le texte -->\r\n\t<div class=\"right\">\r\n\t\t<div class=\"name\"></div>\r\n\t\t<div class=\"status\"></div>\r\n\t</div>\r\n</div>\r\n<!-- HA Alert -->\r\n<ha-alert style=\"display: none\" type=\"error\"></ha-alert><script src=\"/card.f5f5b52c.js\"></script>";
+var $9638ec45b5178673$exports = {};
+$9638ec45b5178673$exports = "<!-- Main container -->\n<div class=\"container\">\n\t<!-- Icon Section (avatar or icon) -->\n\t<div class=\"left\">\n\t\t<img class=\"avatar\" alt=\"avatar\">\n\t\t<div class=\"shape\"></div>\n\t\t<ha-icon class=\"icon\"></ha-icon>\n\t</div>\n\n\t<!-- Section droite avec le texte -->\n\t<div class=\"right\">\n\t\t<div class=\"name\"></div>\n\t\t<div class=\"status\"></div>\n\t</div>\n</div>\n<!-- HA Alert -->\n<ha-alert style=\"display: none\" type=\"error\"></ha-alert>";
 
 
-var $bdcf0e48dd3f2b63$exports = {};
-$bdcf0e48dd3f2b63$exports = "ha-card {\n  --glow-color: \"#00FF00\";\n  box-sizing: border-box;\n  border: none;\n  border-radius: 8px;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  max-width: 600px;\n  height: 100%;\n  margin: 0 auto;\n  padding: 0;\n  display: flex;\n}\n\n.container {\n  cursor: pointer;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  height: 100%;\n  margin: 7px 10px;\n  padding: 0;\n  display: flex;\n  overflow: hidden;\n}\n\n.left {\n  flex-shrink: 0;\n  justify-content: center;\n  align-items: center;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  position: relative;\n}\n\n.shape {\n  background-color: var(--state-icon-color);\n  opacity: .2;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: block;\n  position: absolute;\n}\n\n.avatar {\n  aspect-ratio: 1;\n  object-fit: fill;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: none;\n  position: absolute;\n}\n\n.icon {\n  z-index: 1;\n  width: 24px;\n  height: 24px;\n  position: relative;\n}\n\n.badge {\n  z-index: 2;\n  --mdc-icon-size: var(--badge-icon-size, 12px);\n  background-color: #4caf50;\n  border-radius: 50%;\n  justify-content: center;\n  align-items: center;\n  width: 16px;\n  height: 16px;\n  display: flex;\n  position: absolute;\n  top: -3px;\n  right: -3px;\n}\n\n.badge-icon {\n  display: flex;\n}\n\n.right {\n  flex-direction: column;\n  flex-grow: 1;\n  justify-content: flex-start;\n  width: 100%;\n  display: flex;\n  overflow: hidden;\n}\n\n.name {\n  color: var(--primary-text-color);\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  font-size: 1em;\n  font-weight: bold;\n  overflow: hidden;\n}\n\n.status {\n  color: var(--primary-text-color);\n  text-overflow: ellipsis;\n  font-size: .9em;\n}\n\nha-alert {\n  z-index: 10;\n  background-color: #000;\n  justify-content: center;\n  align-items: center;\n  width: 105%;\n  height: 110%;\n  display: flex;\n  position: absolute;\n  top: -1px;\n  left: -2px;\n}\n";
+var $519989742a5d7663$exports = {};
+$519989742a5d7663$exports = "ha-card {\n  --glow-color: \"#00FF00\";\n  box-sizing: border-box;\n  border: none;\n  border-radius: 8px;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  max-width: 600px;\n  height: 100%;\n  margin: 0 auto;\n  padding: 0;\n  display: flex;\n}\n\n.container {\n  cursor: pointer;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  gap: 10px;\n  width: 100%;\n  height: 100%;\n  margin: 7px 10px;\n  padding: 0;\n  display: flex;\n  overflow: hidden;\n}\n\n.left {\n  flex-shrink: 0;\n  justify-content: center;\n  align-items: center;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  position: relative;\n}\n\n.shape {\n  background-color: var(--state-icon-color);\n  opacity: .2;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: block;\n  position: absolute;\n}\n\n.avatar {\n  aspect-ratio: 1;\n  object-fit: fill;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  display: none;\n  position: absolute;\n}\n\n.icon {\n  z-index: 1;\n  width: 24px;\n  height: 24px;\n  position: relative;\n}\n\n.badge {\n  z-index: 2;\n  --mdc-icon-size: var(--badge-icon-size, 12px);\n  background-color: #4caf50;\n  border-radius: 50%;\n  justify-content: center;\n  align-items: center;\n  width: 16px;\n  height: 16px;\n  display: flex;\n  position: absolute;\n  top: -3px;\n  right: -3px;\n}\n\n.badge-icon {\n  display: flex;\n}\n\n.right {\n  flex-direction: column;\n  flex-grow: 1;\n  justify-content: flex-start;\n  width: 100%;\n  display: flex;\n  overflow: hidden;\n}\n\n.name {\n  color: var(--primary-text-color);\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 100%;\n  font-size: 1em;\n  font-weight: bold;\n  overflow: hidden;\n}\n\n.status {\n  color: var(--primary-text-color);\n  text-overflow: ellipsis;\n  font-size: .9em;\n}\n\nha-alert {\n  z-index: 10;\n  background-color: #000;\n  justify-content: center;\n  align-items: center;\n  width: 105%;\n  height: 110%;\n  display: flex;\n  position: absolute;\n  top: -1px;\n  left: -2px;\n}\n";
 
 
 const $7769f3d3893bce30$var$CARD_DATA = (0, $6f7bb9e4197d1082$export$5f768699f44cc740).automationCard;
@@ -968,9 +985,9 @@ class $7769f3d3893bce30$export$d0f2c6a290ca64b6 extends HTMLElement {
     _buildCard() {
         const wrapper = document.createElement('ha-card');
         wrapper.classList.add(this._config.slug);
-        wrapper.innerHTML = (0, (/*@__PURE__*/$parcel$interopDefault($f852706b81d5457b$exports)));
+        wrapper.innerHTML = (0, (/*@__PURE__*/$parcel$interopDefault($9638ec45b5178673$exports)));
         const style = document.createElement('style');
-        style.textContent = (0, (/*@__PURE__*/$parcel$interopDefault($bdcf0e48dd3f2b63$exports))) + (0, $6f7bb9e4197d1082$export$41842ee8fe7a2916).cssGlowStyles();
+        style.textContent = (0, (/*@__PURE__*/$parcel$interopDefault($519989742a5d7663$exports))) + (0, $6f7bb9e4197d1082$export$41842ee8fe7a2916).cssGlowStyles();
         this.shadowRoot.innerHTML = '';
         this.shadowRoot.appendChild(style);
         this.shadowRoot.appendChild(wrapper);
