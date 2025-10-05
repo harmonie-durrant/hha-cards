@@ -131,7 +131,7 @@ export class HHARoomCardEditor extends HTMLElement {
 		inputElement.value = value;
 
 		inputElement.addEventListener(
-			(type === 'color' || type === 'layout') ? 'selected' : (type === 'entity' || type == 'person' || type === 'icon' ? 'value-changed' : 'input'),
+			(type === 'color' || type === 'layout') ? 'selected' : (type === 'entity' || type === 'person' || type === 'bool' || type === 'icon' ? 'value-changed' : 'input'),
 			(event) => {
 				const newValue = event.detail?.value || event.target.value;
 				this._updateConfigProperty(name, newValue);

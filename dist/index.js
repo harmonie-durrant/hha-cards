@@ -1130,7 +1130,6 @@ class $e1ab43b7edcf407d$export$783e5511aa4d824d extends HTMLElement {
         };
     }
     _updateConfigProperty(key, value) {
-        // Create a new config object instead of modifying the existing one
         const newConfig = {
             ...this._config
         };
@@ -1295,7 +1294,6 @@ class $3e3b493af902abcc$export$5ea5fe548a187fbc extends HTMLElement {
         };
     }
     _updateConfigProperty(key, value) {
-        // Create a new config object instead of modifying the existing one
         const newConfig = {
             ...this._config
         };
@@ -1381,7 +1379,7 @@ class $3e3b493af902abcc$export$5ea5fe548a187fbc extends HTMLElement {
         inputElement.required = required;
         inputElement.label = label;
         inputElement.value = value;
-        inputElement.addEventListener(type === 'color' || type === 'layout' ? 'selected' : type === 'entity' || type == 'person' || type === 'icon' ? 'value-changed' : 'input', (event)=>{
+        inputElement.addEventListener(type === 'color' || type === 'layout' ? 'selected' : type === 'entity' || type === 'person' || type === 'bool' || type === 'icon' ? 'value-changed' : 'input', (event)=>{
             const newValue = event.detail?.value || event.target.value;
             this._updateConfigProperty(name, newValue);
         });
@@ -1473,7 +1471,6 @@ class $c97284bc6ad136b0$export$6a595fcb47d642b0 extends HTMLElement {
         };
     }
     _updateConfigProperty(key, value) {
-        // Create a new config object instead of modifying the existing one
         const newConfig = {
             ...this._config
         };
@@ -1553,7 +1550,7 @@ class $c97284bc6ad136b0$export$6a595fcb47d642b0 extends HTMLElement {
         inputElement.required = required;
         inputElement.label = label;
         inputElement.value = value;
-        inputElement.addEventListener(type === 'color' || type === 'layout' ? 'selected' : type === 'entity' || type == 'person' || type === 'icon' ? 'value-changed' : 'input', (event)=>{
+        inputElement.addEventListener(type === 'color' || type === 'layout' ? 'selected' : type === 'entity' || type == 'person' || type === 'bool' || type === 'icon' ? 'value-changed' : 'input', (event)=>{
             const newValue = event.detail?.value || event.target.value;
             this._updateConfigProperty(name, newValue);
         });
