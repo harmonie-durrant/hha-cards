@@ -1598,7 +1598,7 @@ class $c97284bc6ad136b0$export$6a595fcb47d642b0 extends HTMLElement {
 
 
 
-const $d832f2ef8a5ce6ac$var$add_card = (card, cardClass, editorClass1)=>{
+const $d832f2ef8a5ce6ac$var$add_card = (card, cardClass, editorClass)=>{
     customElements.define(card.type, cardClass);
     window.customCards = window.customCards || [];
     window.customCards.push({
@@ -1606,19 +1606,11 @@ const $d832f2ef8a5ce6ac$var$add_card = (card, cardClass, editorClass1)=>{
         name: card.name,
         description: card.description
     });
-    if (editorClass1) customElements.define(`${card.type}-editor`, editorClass1);
+    if (editorClass) customElements.define(`${card.type}-editor`, editorClass);
 };
 $d832f2ef8a5ce6ac$var$add_card((0, $6f7bb9e4197d1082$export$5f768699f44cc740).personCard, (0, $261d4ffc75f45809$export$ad7810377d4d2567), (0, $e1ab43b7edcf407d$export$783e5511aa4d824d));
 $d832f2ef8a5ce6ac$var$add_card((0, $6f7bb9e4197d1082$export$5f768699f44cc740).roomCard, (0, $3a98db7cf4537cf5$export$a6f3b6d8cfe91fa4), (0, $3e3b493af902abcc$export$5ea5fe548a187fbc));
 $d832f2ef8a5ce6ac$var$add_card((0, $6f7bb9e4197d1082$export$5f768699f44cc740).automationCard, (0, $7769f3d3893bce30$export$d0f2c6a290ca64b6), (0, $c97284bc6ad136b0$export$6a595fcb47d642b0));
-customElements.define((0, $6f7bb9e4197d1082$export$5f768699f44cc740).automationCard.type, (0, $7769f3d3893bce30$export$d0f2c6a290ca64b6));
-window.customCards = window.customCards || [];
-window.customCards.push({
-    type: (0, $6f7bb9e4197d1082$export$5f768699f44cc740).automationCard.type,
-    name: (0, $6f7bb9e4197d1082$export$5f768699f44cc740).automationCard.name,
-    description: (0, $6f7bb9e4197d1082$export$5f768699f44cc740).automationCard.description
-});
-if (editorClass) customElements.define(`${(0, $6f7bb9e4197d1082$export$5f768699f44cc740).automationCard.type}-editor`, (0, $c97284bc6ad136b0$export$6a595fcb47d642b0));
 
 
 //# sourceMappingURL=index.js.map
