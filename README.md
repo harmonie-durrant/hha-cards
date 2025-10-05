@@ -89,6 +89,8 @@ Feel free to fork this repo and submit your changes through pull requests, or to
 
 When developing run `npm install` to setup the project, and `npm run build` or `npm run watch` to build the project. (The watch command will automatically rebuild the project when you save a file)
 
-## Donate
+## Links
+
+[Discord Server for support and discussion](https://discord.gg/Cjakvt9XJH)
 
 [Buy me a coffee.](https://buymeacoffee.com/harmonie)
