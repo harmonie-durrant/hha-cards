@@ -1130,10 +1130,13 @@ class $e1ab43b7edcf407d$export$783e5511aa4d824d extends HTMLElement {
         };
     }
     _updateConfigProperty(key, value) {
-        if (value === '') {
-            if (key in this._config) delete this._config[key];
-        } else this._config[key] = value;
-        this._config = this._reorderConfig(this._config);
+        // Create a new config object instead of modifying the existing one
+        const newConfig = {
+            ...this._config
+        };
+        if (value === '') delete newConfig[key];
+        else newConfig[key] = value;
+        this._config = this._reorderConfig(newConfig);
         this.dispatchEvent(new CustomEvent('config-changed', {
             detail: {
                 config: this._config
@@ -1292,10 +1295,13 @@ class $3e3b493af902abcc$export$5ea5fe548a187fbc extends HTMLElement {
         };
     }
     _updateConfigProperty(key, value) {
-        if (value === '') {
-            if (key in this._config) delete this._config[key];
-        } else this._config[key] = value;
-        this._config = this._reorderConfig(this._config);
+        // Create a new config object instead of modifying the existing one
+        const newConfig = {
+            ...this._config
+        };
+        if (value === '') delete newConfig[key];
+        else newConfig[key] = value;
+        this._config = this._reorderConfig(newConfig);
         this.dispatchEvent(new CustomEvent('config-changed', {
             detail: {
                 config: this._config
@@ -1467,10 +1473,13 @@ class $c97284bc6ad136b0$export$6a595fcb47d642b0 extends HTMLElement {
         };
     }
     _updateConfigProperty(key, value) {
-        if (value === '') {
-            if (key in this._config) delete this._config[key];
-        } else this._config[key] = value;
-        this._config = this._reorderConfig(this._config);
+        // Create a new config object instead of modifying the existing one
+        const newConfig = {
+            ...this._config
+        };
+        if (value === '') delete newConfig[key];
+        else newConfig[key] = value;
+        this._config = this._reorderConfig(newConfig);
         this.dispatchEvent(new CustomEvent('config-changed', {
             detail: {
                 config: this._config

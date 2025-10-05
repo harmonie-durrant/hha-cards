@@ -48,14 +48,13 @@ export class HHARoomCardEditor extends HTMLElement {
 	}
 
 	_updateConfigProperty(key, value) {
+		const newConfig = { ...this._config };
 		if (value === '') {
-			if (key in this._config) {
-				delete this._config[key];
-			}
+			delete newConfig[key];
 		} else {
-			this._config[key] = value;
+			newConfig[key] = value;
 		}
-		this._config = this._reorderConfig(this._config);
+		this._config = this._reorderConfig(newConfig);
 		this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: this._config } }));
 	}
 
@@ -132,7 +131,7 @@ export class HHARoomCardEditor extends HTMLElement {
 		inputElement.value = value;
 
 		inputElement.addEventListener(
-			(type === 'color' || type === 'layout') ? 'selected' : (type === 'entity' || type =='person' || type === 'icon' ? 'value-changed' : 'input'),
+			(type === 'color' || type === 'layout') ? 'selected' : (type === 'entity' || type == 'person' || type === 'icon' ? 'value-changed' : 'input'),
 			(event) => {
 				const newValue = event.detail?.value || event.target.value;
 				this._updateConfigProperty(name, newValue);
@@ -176,11 +175,12 @@ export class HHARoomCardEditor extends HTMLElement {
 
 		CARD_FIELDS.forEach((field) => {
 			container.appendChild(this._createField({
-				name:field.name,
-				label:field.label[this._currentLanguage],
-				type:field.type,
-				required:field.required,
-				description: field.description[this._currentLanguage] }));
+				name: field.name,
+				label: field.label[this._currentLanguage],
+				type: field.type,
+				required: field.required,
+				description: field.description[this._currentLanguage]
+			}));
 		});
 
 		fragment.appendChild(container);
